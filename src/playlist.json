@@ -1,0 +1,985 @@
+[
+  {
+    "index": 1,
+    "videoId": "_GxcFx8LZRk",
+    "name": "KODOKAN JUDO 100 Techniques PV",
+    "seconds": 95,
+    "kind": "promo"
+  },
+  {
+    "index": 2,
+    "videoId": "zIq0xI0ogxk",
+    "name": "Seoi-nage",
+    "seconds": 80,
+    "kind": "nage",
+    "group": "Te-waza",
+    "gokyo": 1
+  },
+  {
+    "index": 3,
+    "videoId": "FQnOlCxo4oI",
+    "name": "Ippon-seoi-nage",
+    "seconds": 54,
+    "kind": "nage",
+    "group": "Te-waza"
+  },
+  {
+    "index": 4,
+    "videoId": "vu1TMVNnq34",
+    "name": "Seoi-otoshi",
+    "seconds": 81,
+    "kind": "nage",
+    "group": "Te-waza"
+  },
+  {
+    "index": 5,
+    "videoId": "4x6S3Q-Ktv8",
+    "name": "Tai-otoshi",
+    "seconds": 76,
+    "kind": "nage",
+    "group": "Te-waza",
+    "gokyo": 2
+  },
+  {
+    "index": 6,
+    "videoId": "cnHRhSy8yi4",
+    "name": "Kata-guruma",
+    "seconds": 70,
+    "kind": "nage",
+    "group": "Te-waza",
+    "gokyo": 3
+  },
+  {
+    "index": 7,
+    "videoId": "vU6aJ2kFxoI",
+    "name": "Sukui-nage",
+    "seconds": 107,
+    "kind": "nage",
+    "group": "Te-waza",
+    "gokyo": 4
+  },
+  {
+    "index": 8,
+    "videoId": "ff8U2TVZIYI",
+    "name": "Obi-otoshi",
+    "seconds": 75,
+    "kind": "nage",
+    "group": "Te-waza"
+  },
+  {
+    "index": 9,
+    "videoId": "6H5tmncOY4Q",
+    "name": "Uki-otoshi",
+    "seconds": 56,
+    "kind": "nage",
+    "group": "Te-waza",
+    "gokyo": 4
+  },
+  {
+    "index": 10,
+    "videoId": "lLU9wv52ni0",
+    "name": "Sumi-otoshi",
+    "seconds": 52,
+    "kind": "nage",
+    "group": "Te-waza",
+    "gokyo": 5
+  },
+  {
+    "index": 11,
+    "videoId": "MGlyKmSuzdc",
+    "name": "Yama-arashi",
+    "seconds": 85,
+    "kind": "nage",
+    "group": "Te-waza"
+  },
+  {
+    "index": 12,
+    "videoId": "bpc82SrunUU",
+    "name": "Obi-tori-gaeshi",
+    "seconds": 87,
+    "kind": "nage",
+    "group": "Te-waza"
+  },
+  {
+    "index": 13,
+    "videoId": "BHLQS4K85bs",
+    "name": "Morote-gari",
+    "seconds": 49,
+    "kind": "nage",
+    "group": "Te-waza"
+  },
+  {
+    "index": 14,
+    "videoId": "ZNL47q1aJNY",
+    "name": "Kuchiki-taoshi",
+    "seconds": 69,
+    "kind": "nage",
+    "group": "Te-waza"
+  },
+  {
+    "index": 15,
+    "videoId": "tJylJYfBliA",
+    "name": "Kibisu-gaeshi",
+    "seconds": 63,
+    "kind": "nage",
+    "group": "Te-waza"
+  },
+  {
+    "index": 16,
+    "videoId": "V-RS3uhtVWM",
+    "name": "Uchi-mata-sukashi",
+    "seconds": 51,
+    "kind": "nage",
+    "group": "Te-waza"
+  },
+  {
+    "index": 17,
+    "videoId": "_MWAdYi_LC4",
+    "name": "Ko-uchi-gaeshi",
+    "seconds": 96,
+    "kind": "nage",
+    "group": "Te-waza"
+  },
+  {
+    "index": 18,
+    "videoId": "z5qYfCEcZOU",
+    "name": "Te-waza",
+    "seconds": 88,
+    "kind": "overview"
+  },
+  {
+    "index": 19,
+    "videoId": "bPKwtB4lyOQ",
+    "name": "Uki-goshi",
+    "seconds": 52,
+    "kind": "nage",
+    "group": "Koshi-waza",
+    "gokyo": 1
+  },
+  {
+    "index": 20,
+    "videoId": "yhu1mfy2vJ4",
+    "name": "O-goshi",
+    "seconds": 86,
+    "kind": "nage",
+    "group": "Koshi-waza",
+    "gokyo": 1
+  },
+  {
+    "index": 21,
+    "videoId": "SU7Id6uVJ44",
+    "name": "Koshi-guruma",
+    "seconds": 70,
+    "kind": "nage",
+    "group": "Koshi-waza",
+    "gokyo": 2
+  },
+  {
+    "index": 22,
+    "videoId": "McfzA0yRVt4",
+    "name": "Tsurikomi-goshi",
+    "seconds": 89,
+    "kind": "nage",
+    "group": "Koshi-waza",
+    "gokyo": 2
+  },
+  {
+    "index": 23,
+    "videoId": "QsmAxpmYLOI",
+    "name": "Sode-tsurikomi-goshi",
+    "seconds": 97,
+    "kind": "nage",
+    "group": "Koshi-waza"
+  },
+  {
+    "index": 24,
+    "videoId": "qTo8HlAAkOo",
+    "name": "Harai-goshi",
+    "seconds": 72,
+    "kind": "nage",
+    "group": "Koshi-waza",
+    "gokyo": 2
+  },
+  {
+    "index": 25,
+    "videoId": "51Htlp7xEvE",
+    "name": "Tsuri-goshi",
+    "seconds": 102,
+    "kind": "nage",
+    "group": "Koshi-waza",
+    "gokyo": 3
+  },
+  {
+    "index": 26,
+    "videoId": "M9_7De6A1kk",
+    "name": "Hane-goshi",
+    "seconds": 77,
+    "kind": "nage",
+    "group": "Koshi-waza",
+    "gokyo": 3
+  },
+  {
+    "index": 27,
+    "videoId": "4pQd_bEnlf0",
+    "name": "Utsuri-goshi",
+    "seconds": 59,
+    "kind": "nage",
+    "group": "Koshi-waza",
+    "gokyo": 4
+  },
+  {
+    "index": 28,
+    "videoId": "ORIYstuxYT8",
+    "name": "Ushiro-goshi",
+    "seconds": 64,
+    "kind": "nage",
+    "group": "Koshi-waza",
+    "gokyo": 5
+  },
+  {
+    "index": 29,
+    "videoId": "cgIby7HnKzA",
+    "name": "Koshi-waza",
+    "seconds": 58,
+    "kind": "overview"
+  },
+  {
+    "index": 30,
+    "videoId": "4BUUvqxi_Kk",
+    "name": "De-ashi-harai",
+    "seconds": 78,
+    "kind": "nage",
+    "group": "Ashi-waza",
+    "gokyo": 1
+  },
+  {
+    "index": 31,
+    "videoId": "JPJx9-oAVns",
+    "name": "Hiza-guruma",
+    "seconds": 86,
+    "kind": "nage",
+    "group": "Ashi-waza",
+    "gokyo": 1
+  },
+  {
+    "index": 32,
+    "videoId": "699i--pvYmE",
+    "name": "Sasae-tsurikomi-ashi",
+    "seconds": 74,
+    "kind": "nage",
+    "group": "Ashi-waza",
+    "gokyo": 1
+  },
+  {
+    "index": 33,
+    "videoId": "c-A_nP7mKAc",
+    "name": "O-soto-gari",
+    "seconds": 105,
+    "kind": "nage",
+    "group": "Ashi-waza",
+    "gokyo": 1
+  },
+  {
+    "index": 34,
+    "videoId": "0itJFhV9pDQ",
+    "name": "O-uchi-gari",
+    "seconds": 88,
+    "kind": "nage",
+    "group": "Ashi-waza",
+    "gokyo": 1
+  },
+  {
+    "index": 35,
+    "videoId": "jeQ541ScLB4",
+    "name": "Ko-soto-gari",
+    "seconds": 57,
+    "kind": "nage",
+    "group": "Ashi-waza",
+    "gokyo": 2
+  },
+  {
+    "index": 36,
+    "videoId": "3Jb3tZvr9Ng",
+    "name": "Ko-uchi-gari",
+    "seconds": 92,
+    "kind": "nage",
+    "group": "Ashi-waza",
+    "gokyo": 2
+  },
+  {
+    "index": 37,
+    "videoId": "nw1ZdRjrdRI",
+    "name": "Okuri-ashi-harai",
+    "seconds": 119,
+    "kind": "nage",
+    "group": "Ashi-waza",
+    "gokyo": 2
+  },
+  {
+    "index": 38,
+    "videoId": "iUpSu5J-bgw",
+    "name": "Uchi-mata",
+    "seconds": 111,
+    "kind": "nage",
+    "group": "Ashi-waza",
+    "gokyo": 2
+  },
+  {
+    "index": 39,
+    "videoId": "8b6kY4s4zH4",
+    "name": "Ko-soto-gake",
+    "seconds": 94,
+    "kind": "nage",
+    "group": "Ashi-waza",
+    "gokyo": 3
+  },
+  {
+    "index": 40,
+    "videoId": "ROeayhvom9U",
+    "name": "Ashi-guruma",
+    "seconds": 57,
+    "kind": "nage",
+    "group": "Ashi-waza",
+    "gokyo": 3
+  },
+  {
+    "index": 41,
+    "videoId": "gGPXvWL8VbE",
+    "name": "Harai-tsurikomi-ashi",
+    "seconds": 94,
+    "kind": "nage",
+    "group": "Ashi-waza",
+    "gokyo": 3
+  },
+  {
+    "index": 42,
+    "videoId": "SnZciTAY9vc",
+    "name": "O-guruma",
+    "seconds": 60,
+    "kind": "nage",
+    "group": "Ashi-waza",
+    "gokyo": 4
+  },
+  {
+    "index": 43,
+    "videoId": "92KbCm6pQeI",
+    "name": "O-soto-guruma",
+    "seconds": 61,
+    "kind": "nage",
+    "group": "Ashi-waza",
+    "gokyo": 5
+  },
+  {
+    "index": 44,
+    "videoId": "2DsVvDw7b8g",
+    "name": "O-soto-otoshi",
+    "seconds": 64,
+    "kind": "nage",
+    "group": "Ashi-waza"
+  },
+  {
+    "index": 45,
+    "videoId": "GwweWqqFB5g",
+    "name": "Tsubame-gaeshi",
+    "seconds": 64,
+    "kind": "nage",
+    "group": "Ashi-waza"
+  },
+  {
+    "index": 46,
+    "videoId": "8ZjM3X_EANo",
+    "name": "O-soto-gaeshi",
+    "seconds": 74,
+    "kind": "nage",
+    "group": "Ashi-waza"
+  },
+  {
+    "index": 47,
+    "videoId": "dCyZTXyjIXE",
+    "name": "O-uchi-gaeshi",
+    "seconds": 62,
+    "kind": "nage",
+    "group": "Ashi-waza"
+  },
+  {
+    "index": 48,
+    "videoId": "9bZAZSBtnGs",
+    "name": "Hane-goshi-gaeshi",
+    "seconds": 42,
+    "kind": "nage",
+    "group": "Ashi-waza"
+  },
+  {
+    "index": 49,
+    "videoId": "4U3It-7PPsc",
+    "name": "Harai-goshi-gaeshi",
+    "seconds": 43,
+    "kind": "nage",
+    "group": "Ashi-waza"
+  },
+  {
+    "index": 50,
+    "videoId": "Sy6sLWxkWYw",
+    "name": "Uchi-mata-gaeshi",
+    "seconds": 44,
+    "kind": "nage",
+    "group": "Ashi-waza"
+  },
+  {
+    "index": 51,
+    "videoId": "-Xpmgtaypmg",
+    "name": "Ashi-waza",
+    "seconds": 131,
+    "kind": "overview"
+  },
+  {
+    "index": 52,
+    "videoId": "880WbHvHv6A",
+    "name": "Tomoe-nage",
+    "seconds": 55,
+    "kind": "nage",
+    "group": "Ma-sutemi-waza",
+    "gokyo": 3
+  },
+  {
+    "index": 53,
+    "videoId": "5VhduA5xkbA",
+    "name": "Sumi-gaeshi",
+    "seconds": 61,
+    "kind": "nage",
+    "group": "Ma-sutemi-waza",
+    "gokyo": 4
+  },
+  {
+    "index": 54,
+    "videoId": "92zUYWBp5N8",
+    "name": "Hikikomi-gaeshi",
+    "seconds": 59,
+    "kind": "nage",
+    "group": "Ma-sutemi-waza"
+  },
+  {
+    "index": 55,
+    "videoId": "TmTWgrmViZc",
+    "name": "Tawara-gaeshi",
+    "seconds": 66,
+    "kind": "nage",
+    "group": "Ma-sutemi-waza"
+  },
+  {
+    "index": 56,
+    "videoId": "Fgi9b8DJ5sQ",
+    "name": "Ura-nage",
+    "seconds": 29,
+    "kind": "nage",
+    "group": "Ma-sutemi-waza",
+    "gokyo": 5
+  },
+  {
+    "index": 57,
+    "videoId": "LnjW67efl00",
+    "name": "Ma-sutemi-waza",
+    "seconds": 44,
+    "kind": "overview"
+  },
+  {
+    "index": 58,
+    "videoId": "MnNG67pF_a0",
+    "name": "Yoko-otoshi",
+    "seconds": 54,
+    "kind": "nage",
+    "group": "Yoko-sutemi-waza",
+    "gokyo": 3
+  },
+  {
+    "index": 59,
+    "videoId": "3b9Me3Fohpk",
+    "name": "Tani-otoshi",
+    "seconds": 79,
+    "kind": "nage",
+    "group": "Yoko-sutemi-waza",
+    "gokyo": 4
+  },
+  {
+    "index": 60,
+    "videoId": "6CRBGLGz9j8",
+    "name": "Hane-makikomi",
+    "seconds": 60,
+    "kind": "nage",
+    "group": "Yoko-sutemi-waza",
+    "gokyo": 4
+  },
+  {
+    "index": 61,
+    "videoId": "bWG9O1BVKtQ",
+    "name": "Soto-makikomi",
+    "seconds": 58,
+    "kind": "nage",
+    "group": "Yoko-sutemi-waza",
+    "gokyo": 4
+  },
+  {
+    "index": 62,
+    "videoId": "5BowcjduxVc",
+    "name": "Uchi-makikomi",
+    "seconds": 67,
+    "kind": "nage",
+    "group": "Yoko-sutemi-waza"
+  },
+  {
+    "index": 63,
+    "videoId": "weVOpJ63gII",
+    "name": "Uki-waza",
+    "seconds": 63,
+    "kind": "nage",
+    "group": "Yoko-sutemi-waza",
+    "gokyo": 5
+  },
+  {
+    "index": 64,
+    "videoId": "bp1tscHlePI",
+    "name": "Yoko-wakare",
+    "seconds": 95,
+    "kind": "nage",
+    "group": "Yoko-sutemi-waza",
+    "gokyo": 5
+  },
+  {
+    "index": 65,
+    "videoId": "MehP6I5cY2c",
+    "name": "Yoko-guruma",
+    "seconds": 72,
+    "kind": "nage",
+    "group": "Yoko-sutemi-waza",
+    "gokyo": 5
+  },
+  {
+    "index": 66,
+    "videoId": "tP1Sj1uDfSo",
+    "name": "Yoko-gake",
+    "seconds": 67,
+    "kind": "nage",
+    "group": "Yoko-sutemi-waza",
+    "gokyo": 5
+  },
+  {
+    "index": 67,
+    "videoId": "Hr0cOMGBDYo",
+    "name": "Daki-wakare",
+    "seconds": 73,
+    "kind": "nage",
+    "group": "Yoko-sutemi-waza"
+  },
+  {
+    "index": 68,
+    "videoId": "DGDv2oMwmas",
+    "name": "O-soto-makikomi",
+    "seconds": 70,
+    "kind": "nage",
+    "group": "Yoko-sutemi-waza"
+  },
+  {
+    "index": 69,
+    "videoId": "jZXENTLpJCI",
+    "name": "Uchi-mata-makikomi",
+    "seconds": 51,
+    "kind": "nage",
+    "group": "Yoko-sutemi-waza"
+  },
+  {
+    "index": 70,
+    "videoId": "VBaHzKaCXss",
+    "name": "Harai-makikomi",
+    "seconds": 67,
+    "kind": "nage",
+    "group": "Yoko-sutemi-waza"
+  },
+  {
+    "index": 71,
+    "videoId": "_1eygIXLD_w",
+    "name": "Ko-uchi-makikomi",
+    "seconds": 61,
+    "kind": "nage",
+    "group": "Yoko-sutemi-waza"
+  },
+  {
+    "index": 72,
+    "videoId": "OR-HGHnarYc",
+    "name": "Kani-basami",
+    "seconds": 44,
+    "kind": "nage",
+    "group": "Yoko-sutemi-waza"
+  },
+  {
+    "index": 73,
+    "videoId": "w6G57bWACi0",
+    "name": "Kawazu-gake",
+    "seconds": 34,
+    "kind": "nage",
+    "group": "Yoko-sutemi-waza"
+  },
+  {
+    "index": 74,
+    "videoId": "ml_eSxz8OMo",
+    "name": "Yoko-sutemi-waza",
+    "seconds": 96,
+    "kind": "overview"
+  },
+  {
+    "index": 75,
+    "videoId": "NDaQuJOFBYk",
+    "name": "Kesa-gatame",
+    "seconds": 57,
+    "kind": "osae",
+    "group": "Osaekomi-waza"
+  },
+  {
+    "index": 76,
+    "videoId": "5_TS0YHdxcQ",
+    "name": "Kesa-gatame Escapes",
+    "seconds": 139,
+    "kind": "escape",
+    "group": "Osaekomi-waza"
+  },
+  {
+    "index": 77,
+    "videoId": "Q2fb9jaoUFQ",
+    "name": "Kuzure-kesa-gatame",
+    "seconds": 58,
+    "kind": "osae",
+    "group": "Osaekomi-waza"
+  },
+  {
+    "index": 78,
+    "videoId": "-zFQ6h4yKT4",
+    "name": "Kuzure-kesa-gatame Escapes",
+    "seconds": 70,
+    "kind": "escape",
+    "group": "Osaekomi-waza"
+  },
+  {
+    "index": 79,
+    "videoId": "SBapox2M2dE",
+    "name": "Ushiro-kesa-gatame",
+    "seconds": 54,
+    "kind": "osae",
+    "group": "Osaekomi-waza"
+  },
+  {
+    "index": 80,
+    "videoId": "4QuzAAucQsA",
+    "name": "Ushiro-kesa-gatame Escapes",
+    "seconds": 61,
+    "kind": "escape",
+    "group": "Osaekomi-waza"
+  },
+  {
+    "index": 81,
+    "videoId": "zQR3IOXxO_Q",
+    "name": "Kata-gatame",
+    "seconds": 48,
+    "kind": "osae",
+    "group": "Osaekomi-waza"
+  },
+  {
+    "index": 82,
+    "videoId": "7hP1-W2yovk",
+    "name": "Kata-gatame Escapes",
+    "seconds": 74,
+    "kind": "escape",
+    "group": "Osaekomi-waza"
+  },
+  {
+    "index": 83,
+    "videoId": "HFuMjOv0WN8",
+    "name": "Kami-shiho-gatame",
+    "seconds": 42,
+    "kind": "osae",
+    "group": "Osaekomi-waza"
+  },
+  {
+    "index": 84,
+    "videoId": "seGsXy9I4G8",
+    "name": "Kami-siho-gatame Escapes",
+    "seconds": 95,
+    "kind": "escape",
+    "group": "Osaekomi-waza"
+  },
+  {
+    "index": 85,
+    "videoId": "YUrogQWdwiY",
+    "name": "Kuzure-kami-shiho-gatame",
+    "seconds": 82,
+    "kind": "osae",
+    "group": "Osaekomi-waza"
+  },
+  {
+    "index": 86,
+    "videoId": "PPe7E_7d7UI",
+    "name": "Kuzure-kami-siho-gatame Escapes",
+    "seconds": 70,
+    "kind": "escape",
+    "group": "Osaekomi-waza"
+  },
+  {
+    "index": 87,
+    "videoId": "TT7XJVSEQxA",
+    "name": "Yoko-shiho-gatame",
+    "seconds": 113,
+    "kind": "osae",
+    "group": "Osaekomi-waza"
+  },
+  {
+    "index": 88,
+    "videoId": "yK_GSamSPko",
+    "name": "Yoko-shiho-gatame Escapes",
+    "seconds": 82,
+    "kind": "escape",
+    "group": "Osaekomi-waza"
+  },
+  {
+    "index": 89,
+    "videoId": "55-rFmBx53g",
+    "name": "Tate-shiho-gatame",
+    "seconds": 46,
+    "kind": "osae",
+    "group": "Osaekomi-waza"
+  },
+  {
+    "index": 90,
+    "videoId": "JMJBjnst_DA",
+    "name": "Tate-shiho-gatame Escapes",
+    "seconds": 68,
+    "kind": "escape",
+    "group": "Osaekomi-waza"
+  },
+  {
+    "index": 91,
+    "videoId": "e_lAjik1SUM",
+    "name": "Uki-gatame",
+    "seconds": 45,
+    "kind": "osae",
+    "group": "Osaekomi-waza"
+  },
+  {
+    "index": 92,
+    "videoId": "AMHWDFR4ryo",
+    "name": "Uki-gatame Escapes",
+    "seconds": 72,
+    "kind": "escape",
+    "group": "Osaekomi-waza"
+  },
+  {
+    "index": 93,
+    "videoId": "eeAHZB0v3XY",
+    "name": "Ura-gatame",
+    "seconds": 87,
+    "kind": "osae",
+    "group": "Osaekomi-waza"
+  },
+  {
+    "index": 94,
+    "videoId": "0aY2Tmchzs8",
+    "name": "Ura-gatame Escapes",
+    "seconds": 50,
+    "kind": "escape",
+    "group": "Osaekomi-waza"
+  },
+  {
+    "index": 95,
+    "videoId": "guJ-HlAKEA8",
+    "name": "Osaekomi-waza",
+    "seconds": 253,
+    "kind": "overview"
+  },
+  {
+    "index": 96,
+    "videoId": "k2cHry9HByQ",
+    "name": "Nami-juji-jime",
+    "seconds": 56,
+    "kind": "shime",
+    "group": "Shime-waza"
+  },
+  {
+    "index": 97,
+    "videoId": "t3tQriIPdlI",
+    "name": "Gyaku-juji-jime",
+    "seconds": 75,
+    "kind": "shime",
+    "group": "Shime-waza"
+  },
+  {
+    "index": 98,
+    "videoId": "3VZVUAmiMD8",
+    "name": "Kata-juji-jime",
+    "seconds": 154,
+    "kind": "shime",
+    "group": "Shime-waza"
+  },
+  {
+    "index": 99,
+    "videoId": "9f0n8jez7iA",
+    "name": "Hadaka-jime",
+    "seconds": 80,
+    "kind": "shime",
+    "group": "Shime-waza"
+  },
+  {
+    "index": 100,
+    "videoId": "EiqyoVcIAi8",
+    "name": "Okuri-eri-jime",
+    "seconds": 84,
+    "kind": "shime",
+    "group": "Shime-waza"
+  },
+  {
+    "index": 101,
+    "videoId": "yaTGgRjnwB8",
+    "name": "Kataha-jime",
+    "seconds": 69,
+    "kind": "shime",
+    "group": "Shime-waza"
+  },
+  {
+    "index": 102,
+    "videoId": "cHeIs-fSqwE",
+    "name": "Katate-jime",
+    "seconds": 49,
+    "kind": "shime",
+    "group": "Shime-waza"
+  },
+  {
+    "index": 103,
+    "videoId": "-RHC4V7TQiY",
+    "name": "Ryote-jime",
+    "seconds": 66,
+    "kind": "shime",
+    "group": "Shime-waza"
+  },
+  {
+    "index": 104,
+    "videoId": "E3nvQzClcAU",
+    "name": "Sode-guruma-jime",
+    "seconds": 74,
+    "kind": "shime",
+    "group": "Shime-waza"
+  },
+  {
+    "index": 105,
+    "videoId": "dKKpnD3eLcY",
+    "name": "Tsukkomi-jime",
+    "seconds": 78,
+    "kind": "shime",
+    "group": "Shime-waza"
+  },
+  {
+    "index": 106,
+    "videoId": "lq1CUBRAm7s",
+    "name": "Sankaku-jime",
+    "seconds": 59,
+    "kind": "shime",
+    "group": "Shime-waza"
+  },
+  {
+    "index": 107,
+    "videoId": "D_0fFcoIbvY",
+    "name": "Do-jime",
+    "seconds": 66,
+    "kind": "shime",
+    "group": "Shime-waza"
+  },
+  {
+    "index": 108,
+    "videoId": "bq3cwrcS1-c",
+    "name": "Shime-waza",
+    "seconds": 213,
+    "kind": "overview"
+  },
+  {
+    "index": 109,
+    "videoId": "AIlTvZb4RlE",
+    "name": "Ude-garami",
+    "seconds": 91,
+    "kind": "kansetsu",
+    "group": "Kansetsu-waza"
+  },
+  {
+    "index": 110,
+    "videoId": "OWgSOlCuMXw",
+    "name": "Ude-hishigi-juji-gatame",
+    "seconds": 72,
+    "kind": "kansetsu",
+    "group": "Kansetsu-waza"
+  },
+  {
+    "index": 111,
+    "videoId": "SBf0aTma1VI",
+    "name": "Ude-hishigi-ude-gatame",
+    "seconds": 50,
+    "kind": "kansetsu",
+    "group": "Kansetsu-waza"
+  },
+  {
+    "index": 112,
+    "videoId": "H2HtAJdiJcE",
+    "name": "Ude-hishigi-hiza-gatame",
+    "seconds": 65,
+    "kind": "kansetsu",
+    "group": "Kansetsu-waza"
+  },
+  {
+    "index": 113,
+    "videoId": "8F5p1zuJRG0",
+    "name": "Ude-hishigi-waki-gatame",
+    "seconds": 53,
+    "kind": "kansetsu",
+    "group": "Kansetsu-waza"
+  },
+  {
+    "index": 114,
+    "videoId": "ZzEycg8R_9M",
+    "name": "Ude-hishigi-hara-gatame",
+    "seconds": 55,
+    "kind": "kansetsu",
+    "group": "Kansetsu-waza"
+  },
+  {
+    "index": 115,
+    "videoId": "ClY7g_pX-4s",
+    "name": "Ude-hishigi-ashi-gatame",
+    "seconds": 65,
+    "kind": "kansetsu",
+    "group": "Kansetsu-waza"
+  },
+  {
+    "index": 116,
+    "videoId": "6DnvhY0tQVM",
+    "name": "Ude-hishigi-te-gatame",
+    "seconds": 60,
+    "kind": "kansetsu",
+    "group": "Kansetsu-waza"
+  },
+  {
+    "index": 117,
+    "videoId": "WefAmW4azhk",
+    "name": "Ude-hishigi-sankaku-gatame",
+    "seconds": 75,
+    "kind": "kansetsu",
+    "group": "Kansetsu-waza"
+  },
+  {
+    "index": 118,
+    "videoId": "BWWb0GoAtZw",
+    "name": "Ashi-garami",
+    "seconds": 68,
+    "kind": "kansetsu",
+    "group": "Kansetsu-waza"
+  },
+  {
+    "index": 119,
+    "videoId": "QtVipMcTsdw",
+    "name": "Kansetsu-waza",
+    "seconds": 94,
+    "kind": "overview"
+  }
+]

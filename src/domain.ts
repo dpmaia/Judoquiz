@@ -1,0 +1,10 @@
+export type Category = 'rei'|'ukemi'|'nage'|'osae'|'shime'|'kansetsu'|'kumi'|'vocabulario'|'historia'|'fundamentos';
+export const categoryNames: Record<Category,string> = {rei:'Saudações',ukemi:'Amortecimentos',nage:'Projeções',osae:'Imobilizações',shime:'Estrangulamentos',kansetsu:'Chaves de braço',kumi:'Pegadas',vocabulario:'Vocabulário',historia:'História',fundamentos:'Fundamentos'};
+export type Grade = {id:string;name:string;kyu:number;order:number;colors:[string,string?];page:number;requirements:string[]};
+export type Requirement = {id:string;gradeId:string;category:Category;description:string;reference:string;techniqueIds?:string[]};
+export type Media = {id:string;source:'youtube'|'local';player:'youtube-iframe'|'html-video';videoId?:string;path?:string;start:number;end?:number;mask?:{enabled:boolean;left:string;bottom:string;width:string;height:string}};
+export type Technique = {id:string;name:string;aliases:string[];category:Category;classification?:string;group?:string;description:string;mediaIds:string[];reference:string};
+export type Question = {id:string;introducedAt:string;requirementId:string;category:Category;kind:'text'|'video'|'image';scope?:'supplemental';prompt:string;options:[string,string,string,string];answer:string;explanation:string;reference:string;techniqueId?:string;mediaId?:string;imagePath?:string};
+export type QuizConfig = {gradeId:string;count:10|20;categories:Category[];cumulative:boolean;mode:'simulado'|'treino'};
+export type Response = {questionId:string;selected:string;correct:boolean};
+export type Result = {id:string;date:string;config:QuizConfig;responses:Response[];correct:number;wrong:number};
