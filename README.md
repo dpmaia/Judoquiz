@@ -13,11 +13,23 @@ npm run dev
 
 Abra o endereço mostrado pelo Vite. Para verificar: `npm run test` e `npm run build`.
 
+## Preparar publicação no GitHub Pages
+
+O projeto está configurado para o repositório `dpmaia/Judoquiz`, cujo endereço será `https://dpmaia.github.io/Judoquiz/`. A compilação de publicação usa `/Judoquiz/` como caminho base, mantém a navegação por `#` para que as páginas internas funcionem no Pages e ajusta os caminhos das imagens locais. O desenvolvimento local continua usando os endereços normais.
+
+O fluxo em `.github/workflows/deploy-pages.yml` é **manual**: enviar alterações para o GitHub não publica o protótipo automaticamente. Quando o conteúdo e os vídeos estiverem prontos para distribuição:
+
+1. Envie estas alterações para a branch padrão do repositório.
+2. Em **Settings → Pages → Build and deployment → Source**, selecione **GitHub Actions**.
+3. Em **Actions → Publicar no GitHub Pages**, escolha **Run workflow**.
+
+O fluxo instala as dependências a partir de `pnpm-lock.yaml`, roda os testes, compila e publica `dist`. Para conferir a compilação local do Pages, execute `pnpm build:pages`. Isso apenas cria arquivos em `dist`; não publica o site.
+
 ## O que está implementado
 
 - 11 faixas, da branca/cinza à marrom, com representação visual e requisitos vinculados ao art. 8º do regulamento.
 - Simulado de 10 ou 20 questões, filtros por categoria, conteúdo cumulativo ou apenas da faixa, respostas embaralhadas e aviso de disponibilidade.
-- Treino livre, feedback, resultado por categoria, revisão de erros e histórico neste navegador.
+- Treino livre, feedback, resultado por categoria e revisão de erros. O histórico fica armazenado neste navegador, mas a aba de resultados anteriores está temporariamente desabilitada.
 - Banco de 242 questões para as 11 faixas: 110 demonstrações técnicas da playlist, teoria por graduação, saudações, ukemi e kumi-kata. No modo cumulativo, cada faixa inclui as anteriores. Quando o filtro oferece menos questões que o total solicitado, a interface avisa e usa somente as disponíveis.
 - A [playlist Kodokan × IJF Academy](https://www.youtube.com/playlist?list=PLtz539PTepc16H2iu5F3Q3D7_He1EYlIQ) foi catalogada: 100 técnicas, 10 demonstrações de saídas, 8 vídeos de visão geral e 1 abertura. Cada uma das 110 demonstrações técnicas ou saídas tem uma pergunta visual; os oito vídeos de visão geral não são tratados como técnicas individuais.
 - As projeções fora dos cinco grupos do Go Kyô e duas técnicas fora das exigências de estrangulamento/chave de cotovelo aparecem **somente no treino complementar**. O simulado usa as técnicas vinculadas aos requisitos da FMJ. A distribuição de exemplos dentro do 1º Kyô e das imobilizações por faixa é editorial, pois o regulamento não nomeia as técnicas exigidas em cada etapa.

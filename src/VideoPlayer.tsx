@@ -81,7 +81,7 @@ export default function VideoPlayer({media, maskEnabled = true}: Props) {
 
   const src = media.source === 'youtube'
     ? `https://www.youtube-nocookie.com/embed/${media.videoId}?start=${seekStart}&end=${media.end || 0}&autoplay=1&mute=1&controls=0&fs=0&disablekb=1&rel=0&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`
-    : media.path;
+    : media.path && `${import.meta.env.BASE_URL}${media.path.replace(/^\/+/, '')}`;
 
   function toggle() {
     const next = !playingRef.current;
