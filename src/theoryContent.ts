@@ -83,7 +83,7 @@ export function makeTheoryContent(requirements:Requirement[]):Question[]{
  terms('verde','vocabulario',[
   ['Kan-Geiko','Treinamento de inverno'],['Natsu-Geiko','Treinamento de verão'],['Goshi','Quadril'],['Guruma','Roda'],
   ['Gyaku','Inverso'],['Tokui-waza','Técnica preferida'],['Ude','Braço ou antebraço'],['Jime','Estrangulamento'],
-  ['Juji','Cruzado'],['Kami','Superior'],['Nogare','Escapada'],['Fusegui','Defesa']
+  ['Juji','Cruzado'],['Kami','Superior'],['Nogare kata','Escapada'],['Fusegui','Defesa']
  ],18);
  add('verde','historia','primeiro-mundial','Em que ano ocorreu o primeiro Campeonato Mundial de Judô?','1956',['1954','1964','1972'],'O regulamento registra o primeiro mundial em 1956, no Japão.',19);
  add('verde','historia','mundiais-brasil','Qual sequência contém os anos de mundiais de judô no Brasil citados no programa?','1965, 2007 e 2013',['1954, 1964 e 1972','1956, 1988 e 2013','1965, 1972 e 2007'],'O programa lista 1965, 2007 e 2013, realizados no Rio de Janeiro.',19);
