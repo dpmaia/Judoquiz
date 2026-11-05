@@ -25,6 +25,14 @@ O fluxo em `.github/workflows/deploy-pages.yml` é **manual**: enviar alteraçõ
 
 O fluxo instala as dependências a partir de `pnpm-lock.yaml`, roda os testes, compila e publica `dist`. Para conferir a compilação local do Pages, execute `pnpm build:pages`. Isso apenas cria arquivos em `dist`; não publica o site.
 
+### Incluir vídeos na publicação
+
+Coloque os vídeos autorizados em `public/videos/` com o nome `ID_DO_YOUTUBE.mp4` ou `ID_DO_YOUTUBE.webm`. O build do Pages copia esses arquivos e o quiz os associa ao banco pelo identificador de 11 caracteres.
+
+Com FFmpeg instalado, rode `node scripts/prepare-pages-videos.mjs` para converter os originais numerados em `Videos/` para MP4 de 480p, dando preferência às cópias compatíveis em `Videos/.browser/`. Para preparar só um vídeo, acrescente o ID ao comando, por exemplo `node scripts/prepare-pages-videos.mjs yhu1mfy2vJ4`. As cópias são geradas em `public/videos/` e mantêm os tempos dos trechos. Inclua no commit os arquivos dessa pasta autorizados para distribuição.
+
+Para conferir o resultado local, rode `pnpm build:pages` seguido de `pnpm exec vite preview --mode github-pages` e abra o caminho `/Judoquiz/`.
+
 ## O que está implementado
 
 - 11 faixas, da branca/cinza à marrom, com representação visual e requisitos vinculados ao art. 8º do regulamento.
@@ -38,7 +46,7 @@ O fluxo instala as dependências a partir de `pnpm-lock.yaml`, roda os testes, c
 
 ## Vídeos locais
 
-Coloque os arquivos WebM ou MP4 na pasta `Videos/`, com nomes terminados em `_ID_DO_YOUTUBE.webm` ou `_ID_DO_YOUTUBE.mp4`, e reinicie o Vite. O identificador de 11 caracteres faz a associação com o banco. Na prévia de produção local, use `pnpm build` seguido de `pnpm exec vite preview`. A pasta é ignorada pelo Git e os vídeos ficam fora da compilação para GitHub Pages.
+Coloque os arquivos WebM ou MP4 na pasta `Videos/`, com nomes terminados em `_ID_DO_YOUTUBE.webm` ou `_ID_DO_YOUTUBE.mp4`, e reinicie o Vite. O identificador de 11 caracteres faz a associação com o banco. Na prévia de produção local, use `pnpm build` seguido de `pnpm exec vite preview`. A pasta `Videos/` é ignorada pelo Git. Apenas os arquivos de `public/videos/` entram na publicação.
 
 Se um original não abrir no navegador, o player dá preferência à cópia compatível em `Videos/.browser/ID_DO_YOUTUBE.mp4`. Para originais MKV com vídeo H.264, o comando abaixo gera essa cópia sem recodificar e remove áudio, capítulos e metadados:
 

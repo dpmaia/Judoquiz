@@ -1,6 +1,6 @@
 import { createReadStream, existsSync, readdirSync, statSync } from 'node:fs';
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 import type { Plugin } from 'vite';
 
 function byteRange(range: string | undefined, size: number): [number, number] | null {
@@ -12,7 +12,7 @@ function byteRange(range: string | undefined, size: number): [number, number] | 
   return start <= end ? [start, end] : null;
 }
 
-export function localVideos(enabled: boolean): Plugin {
+export function localVideos(): Plugin {
   const files = new Map<string, { path: string; type: string }>();
 
   function serve(req: IncomingMessage, res: ServerResponse, next: () => void) {
@@ -50,9 +50,21 @@ export function localVideos(enabled: boolean): Plugin {
 
   return {
     name: 'judo-local-videos',
-    config() {
-      const dir = join(process.cwd(), 'Videos');
-      if (enabled && existsSync(dir)) {
+    config({ root = process.cwd(), publicDir = 'public' }, { mode }) {
+      const paths: Record<string, string> = Object.create(null);
+      if (mode !== 'test' && publicDir !== false) {
+        const published = resolve(root, publicDir, 'videos');
+        if (existsSync(published)) {
+          for (const file of readdirSync(published, { withFileTypes: true })) {
+            if (!file.isFile()) continue;
+            const id = /^([A-Za-z0-9_-]{11})\.(mp4|webm)$/.exec(file.name)?.[1];
+            if (id) paths[id] = `videos/${file.name}`;
+          }
+        }
+      }
+
+      const dir = resolve(root, 'Videos');
+      if (mode !== 'github-pages' && mode !== 'test' && existsSync(dir)) {
         for (const file of readdirSync(dir, { withFileTypes: true })) {
           if (!file.isFile()) continue;
           const match = /_([A-Za-z0-9_-]{11})\.(webm|mp4|mkv)$/i.exec(file.name);
@@ -67,8 +79,9 @@ export function localVideos(enabled: boolean): Plugin {
           }
         }
       }
+      for (const id of files.keys()) paths[id] = `study-media/${id}`;
       return {
-        define: { __LOCAL_VIDEO_IDS__: JSON.stringify([...files.keys()].sort()) },
+        define: { __STUDY_VIDEO_PATHS__: JSON.stringify(paths) },
         server: { fs: { deny: ['**/.env', '**/.env.*', '**/*.{crt,pem}', '**/.git/**', '**/Videos/**'] } },
       };
     },
