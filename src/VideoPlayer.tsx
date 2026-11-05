@@ -125,7 +125,7 @@ function LocalPlayer({media, maskEnabled = true}: Props) {
         onError={() => {setPrepared(false); setError(true)}}
       />
       <NameMask media={media} maskEnabled={maskEnabled}/>
-      {(!prepared || error) && <Curtain error={error}/>}
+      {error && <Curtain error/>}
     </div>
     <PlayerActions playing={playing} toggle={toggle} restart={restart} error={error}/>
   </div>;

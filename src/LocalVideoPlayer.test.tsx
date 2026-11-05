@@ -10,7 +10,7 @@ const local: Media = {
 
 afterEach(() => {cleanup(); vi.restoreAllMocks()});
 
-it('prepara o trecho local e volta ao início configurado sem exibir os títulos', () => {
+it('exibe o trecho local assim que a busca termina, sem tela de preparação', () => {
   vi.spyOn(HTMLMediaElement.prototype, 'play').mockResolvedValue(undefined);
   const {container} = render(<VideoPlayer media={local}/>);
   const video = screen.getByTitle('Demonstração da técnica') as HTMLVideoElement;
@@ -20,10 +20,12 @@ it('prepara o trecho local e volta ao início configurado sem exibir os títulos
   expect(container.querySelector('iframe')).toBeNull();
   expect(container.querySelector('.name-mask')).not.toBeNull();
   expect(video.style.visibility).toBe('hidden');
+  expect(screen.queryByText('Preparando demonstração…')).toBeNull();
 
   fireEvent.loadedMetadata(video);
   expect(video.currentTime).toBe(5);
   expect(video.style.visibility).toBe('hidden');
+  expect(screen.queryByText('Preparando demonstração…')).toBeNull();
   fireEvent.seeked(video);
   expect(video.style.visibility).toBe('visible');
 
@@ -31,6 +33,7 @@ it('prepara o trecho local e volta ao início configurado sem exibir os títulos
   fireEvent.timeUpdate(video);
   expect(video.currentTime).toBe(5);
   expect(video.style.visibility).toBe('hidden');
+  expect(screen.queryByText('Preparando demonstração…')).toBeNull();
 });
 
 it('permite repetir a tentativa sem reiniciar o quiz após um erro local', () => {
@@ -41,5 +44,6 @@ it('permite repetir a tentativa sem reiniciar o quiz após um erro local', () =>
   expect((screen.getByRole('button', {name: 'Pausar'}) as HTMLButtonElement).disabled).toBe(true);
   fireEvent.click(screen.getByRole('button', {name: 'Reiniciar trecho'}));
   expect(load).toHaveBeenCalledOnce();
-  expect(screen.getByText('Preparando demonstração…')).toBeDefined();
+  expect(screen.queryByText('Vídeo indisponível')).toBeNull();
+  expect(screen.queryByText('Preparando demonstração…')).toBeNull();
 });
