@@ -26,11 +26,11 @@ As 28 projeções restantes da playlist não integram esses cinco grupos segundo
 | Yoko-ukemi | Mesmo vídeo | 01:03–01:10 | Questão visual da faixa branca/cinza |
 | Outen-ukemi | Mesmo vídeo | 01:17–01:29 | Trecho catalogado; sem questão nas faixas iniciais |
 | Mae-ukemi | Mesmo vídeo | 01:36–01:39 | Trecho catalogado; sem questão nas faixas iniciais |
-| Mae-mawari-ukemi | Mesmo vídeo | 01:48–02:15 | Questão visual da faixa cinza |
-| Ai-yotsu | [Kodokan: Kumi-kata](https://www.youtube.com/watch?v=AdnY_TrL7XE) | 00:05–01:28 | Questão visual da faixa cinza/azul |
+| Mae-mawari-ukemi | Mesmo vídeo | 01:49–02:15 | Questão visual da faixa cinza |
+| Ai-yotsu | [Kumi-kata](https://www.youtube.com/watch?v=AdnY_TrL7XE) | 00:06–01:28 | Questão visual da faixa cinza/azul |
 | Kenka-yotsu | Mesmo vídeo | 01:35–fim | Questão visual da faixa cinza/azul |
 
-A abertura 00:00–00:28 do vídeo de ukemi e os intervalos entre os trechos indicados pelo usuário foram excluídos por mostrarem o nome do movimento. Todos os vídeos do YouTube iniciam sob a tela de preparação para ocultar a interface nativa enquanto o player busca o trecho. A interação direta com o YouTube fica bloqueada; o simulado mantém a cobertura experimental ligada quando ela estiver configurada para o vídeo. Os arquivos das saudações foram copiados para `public/visual-refs/` para aparecerem no aplicativo, sem alterar os originais.
+A abertura 00:00–00:28 do vídeo de ukemi e os intervalos entre os trechos das questões foram excluídos por mostrarem o nome do movimento. Nos trechos reservados de Outen-ukemi e Mae-ukemi, a cobertura esconde a legenda gravada no vídeo. O quiz usa os arquivos de Ukemi e Kumi-kata em `Videos/` na execução local. Quando precisa recorrer ao YouTube, a tela de preparação oculta a interface nativa durante a busca do trecho. No simulado, a cobertura permanece ligada sempre que configurada. Os arquivos das saudações foram copiados para `public/visual-refs/` para aparecerem no aplicativo, sem alterar os originais.
 
 **Limite de interpretação:** os clipes de ukemi permitem identificar o tipo de amortecimento. A questão não afirma que o vídeo mostra especificamente a execução deitada da faixa branca/cinza ou as posições agachada e em pé da faixa cinza. Essas variações continuam como requisitos do exame presencial, mas não são cobradas por uma imagem que não as comprove. O mesmo vale para os três ukemi *em movimento* da cinza/azul.
 

@@ -1,18 +1,445 @@
-import {useState} from 'react';
-import {Link,Navigate,useNavigate,useParams} from 'react-router-dom';
-import {Routes,Route} from 'react-router-dom';
-import {categoryNames,type Category,type QuizConfig,type Response,type Result} from './domain';
-import {grades,media,questions} from './content';
-import {categoryBreakdown,eligible,loadResults,prepare,saveResult,score} from './quiz';
+import { useEffect, useRef, useState } from 'react';
+import type { ReactNode } from 'react';
+import { Link, NavLink, Navigate, Route, Routes, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { categoryNames, type Category, type Grade, type QuizConfig, type Question, type Response, type Result } from './domain';
+import { grades, media, questions, requirements } from './content';
+import { categoryBreakdown, eligible, loadResults, prepare, saveResult, score } from './quiz';
+import { studyMedia } from './studyMedia';
+import { ActionLink, Belt, GradeMark, Icon, TextLink, studyAsset } from './ui';
 import VideoPlayer from './VideoPlayer';
 
-const allCategories=Object.keys(categoryNames) as Category[];
-function Belt({colors}:{colors:[string,string?]}){return <span className="belt" style={{background:colors[1]?`linear-gradient(90deg,${colors[0]} 50%,${colors[1]} 50%)`:colors[0]}} aria-hidden="true"/>}
-function Layout({children}:{children:React.ReactNode}){return <><header className="topbar"><Link className="brand" to="/"><span className="brand-mark">柔</span><span>Judô Quiz</span></Link><nav aria-label="Navegação principal"><Link to="/faixas">Simulado</Link><Link to="/treino">Treino livre</Link><span className="nav-disabled" aria-disabled="true" title="Disponível em breve">Resultados</span></nav></header><main>{children}</main><footer>Ferramenta independente de estudo · Conteúdo curricular: regulamento FMJ fornecido pelo usuário · Não é exame oficial.</footer></>}
-function Home(){return <><section className="hero"><div className="eyebrow">PREPARE-SE COM CLAREZA</div><h1>Seu próximo passo<br/><em>no judô.</em></h1><p>Estude os conteúdos da faixa pretendida, reconheça movimentos e acompanhe seu progresso em simulados locais.</p><div className="actions"><Link className="button primary" to="/faixas">Iniciar simulado <span>↗</span></Link><Link className="button secondary" to="/treino">Treinamento livre</Link></div><div className="hero-meta"><span>11 faixas</span><span>Questões com fonte</span><span>Sem cadastro</span></div></section><section className="section"><div className="section-head"><div><div className="eyebrow">O CAMINHO</div><h2>Escolha uma graduação</h2></div><Link to="/faixas">Ver todas as faixas →</Link></div><div className="grade-preview">{grades.slice(0,5).map(g=><Link to={`/simulado/${g.id}`} key={g.id}><Belt colors={g.colors}/><strong>{g.name}</strong><small>{g.kyu}º Kyû</small></Link>)}</div></section><section className="feature-row"><article><span className="feature-number">01</span><h3>Escolha sua faixa</h3><p>O conteúdo é organizado por graduação e pode incluir etapas anteriores.</p></article><article><span className="feature-number">02</span><h3>Treine no seu ritmo</h3><p>Responda questões de teoria e identificação visual, quando há mídia verificada.</p></article><article><span className="feature-number">03</span><h3>Revise os erros</h3><p>Veja a resposta correta e a referência do regulamento em cada questão.</p></article></section></>}
-function GradeSelection(){return <section className="page"><div className="eyebrow">SIMULADO</div><h1>Qual faixa você quer conquistar?</h1><p className="lede">Selecione a faixa pretendida. A faixa atual e regras de idade não bloqueiam o estudo.</p><div className="grade-grid">{grades.map(g=><Link className="grade-card" to={`/simulado/${g.id}`} key={g.id}><Belt colors={g.colors}/><span><strong>{g.name}</strong><small>{g.kyu}º Kyû</small></span><span className="arrow">↗</span></Link>)}</div></section>}
-function ConfigPage({training=false}:{training?:boolean}){const {gradeId}=useParams();const navigate=useNavigate();const [chosen,setChosen]=useState(gradeId||'branca-cinza');const [count,setCount]=useState<10|20>(10);const [cumulative,setCumulative]=useState(true);const [categories,setCategories]=useState<Category[]>([]);const grade=grades.find(g=>g.id===chosen)||grades[0];const config:QuizConfig={gradeId:grade.id,count,cumulative,categories,mode:training?'treino':'simulado'};const available=eligible(config);const toggle=(c:Category)=>setCategories(x=>x.includes(c)?x.filter(v=>v!==c):[...x,c]);return <section className="page narrow"><Link className="back" to={training?'/':'/faixas'}>← Voltar</Link><div className="eyebrow">{training?'TREINAMENTO LIVRE':'CONFIGURAR SIMULADO'}</div><h1>{training?'Pratique um tema':'Monte seu simulado'}</h1><p className="lede">{training?'Escolha uma categoria para praticar com feedback imediato.':'Ajuste o estudo à sua faixa e disponibilidade.'}</p><div className="panel"><label className="field-label" htmlFor="grade">Faixa pretendida</label><select id="grade" value={chosen} onChange={e=>setChosen(e.target.value)}>{grades.map(g=><option value={g.id} key={g.id}>{g.name} · {g.kyu}º Kyû</option>)}</select><div className="field-label space">{training?'Categoria':'Categorias'}</div><div className="chips">{allCategories.map(c=><button type="button" className={categories.includes(c)?'chip active':'chip'} onClick={()=>toggle(c)} key={c} aria-pressed={categories.includes(c)}>{categoryNames[c]}</button>)}</div><p className="hint">{categories.length===0?'Todas as categorias disponíveis serão incluídas.':`${categories.length} categoria(s) selecionada(s).`}</p><div className="settings"><div><div className="field-label">Quantidade</div><div className="segmented"><button className={count===10?'selected':''} onClick={()=>setCount(10)}>10 questões</button><button className={count===20?'selected':''} onClick={()=>setCount(20)}>20 questões</button></div></div><label className="check"><input type="checkbox" checked={cumulative} onChange={e=>setCumulative(e.target.checked)}/> Incluir conteúdo das faixas anteriores</label></div><div className="availability"><strong>{available.length} {available.length===1?'questão disponível':'questões disponíveis'}</strong>{available.length<count&&<span>Serão usadas apenas as {available.length} disponíveis. O banco desta seleção ainda está em preparação.</span>}</div><button className="button primary wide" disabled={!available.length} onClick={()=>navigate('/quiz',{state:config})}>Iniciar {training?'treino':'simulado'} →</button></div></section>}
-function Quiz(){const navigate=useNavigate();const config=history.state?.usr as QuizConfig|undefined;const [deck]=useState(()=>config?prepare(config):[]);const [index,setIndex]=useState(0);const [responses,setResponses]=useState<Response[]>([]);const [selection,setSelection]=useState<string|null>(null);const [maskEnabled,setMaskEnabled]=useState(true);if(!config||!deck.length)return <section className="page narrow"><h1>Nenhum quiz em andamento</h1><Link to="/faixas" className="button primary">Escolher faixa</Link></section>;const current=deck[index];const answered=selection!==null;const isCorrect=selection===current.answer;function next(){const response={questionId:current.id,selected:selection!,correct:isCorrect};const updated=[...responses,response];if(index===deck.length-1){const result=score(config!,updated);saveResult(result);navigate(`/resultado/${encodeURIComponent(result.id)}`,{state:result})}else{setResponses(updated);setSelection(null);setIndex(i=>i+1)}}const item=media.find(m=>m.id===current.mediaId);return <section className="quiz-page"><div className="quiz-top"><Link to="/faixas" className="back">← Sair</Link><span>{config.mode==='treino'?'TREINO LIVRE':'SIMULADO'} · {grades.find(g=>g.id===config.gradeId)?.name}</span><span>{index+1} / {deck.length}</span></div><div className="progress"><span style={{width:`${((index+1)/deck.length)*100}%`}}/></div><div className="quiz-layout"><div><div className="eyebrow">{categoryNames[current.category]} · QUESTÃO {index+1}</div><h1>{current.prompt}</h1>{current.scope==='supplemental'&&<p className="hint">Conteúdo complementar da playlist; esta questão aparece somente no treino.</p>}{current.imagePath&&<div className="question-image"><img src={`${import.meta.env.BASE_URL}${current.imagePath.replace(/^\/+/, '')}`} alt="Demonstração de saudação para identificar"/></div>}{item&&<><VideoPlayer key={item.id} media={item} maskEnabled={config.mode==='simulado'||maskEnabled}/>{config.mode==='treino'&&<label className="experimental"><input type="checkbox" checked={maskEnabled} onChange={e=>setMaskEnabled(e.target.checked)}/> Testar cobertura experimental do nome</label>}<p className="hint">{config.mode==='simulado'?'A cobertura experimental fica sempre ativa neste simulado.':'Você pode ligar ou desligar a cobertura experimental neste treino.'} Use somente no protótipo local.</p></>}</div><div className="answer-panel"><p className="field-label">ESCOLHA UMA RESPOSTA</p><div className="options">{current.options.map((option,i)=><button type="button" key={option} disabled={answered} className={`option ${answered&&option===current.answer?'correct':''} ${answered&&option===selection&&!isCorrect?'wrong':''}`} onClick={()=>setSelection(option)}><span>{String.fromCharCode(65+i)}</span>{option}</button>)}</div>{answered&&<div className="feedback" role="status"><strong>{isCorrect?'Resposta correta':'Resposta incorreta'}</strong><p>Resposta correta: <strong>{current.answer}</strong></p><small>Fonte curricular: {current.reference}</small><button className="button primary wide" onClick={next}>{index===deck.length-1?'Ver resultado':'Próxima questão'} →</button></div>}</div></div></section>}
-function ResultPage(){const {id}=useParams();const state=history.state?.usr as Result|undefined;const result=state?.id===id?state:loadResults().find(r=>r.id===id);const [wrongOnly,setWrongOnly]=useState(false);if(!result)return <section className="page"><h1>Resultado não encontrado</h1><Link to="/faixas">Escolher faixa</Link></section>;const rows=result.responses.map(r=>({response:r,question:questions.find(q=>q.id===r.questionId)})).filter(x=>x.question&&(!wrongOnly||!x.response.correct));return <section className="page result-page"><Link className="back" to="/faixas">← Faixas</Link><div className="eyebrow">{result.config.mode==='treino'?'TREINAMENTO CONCLUÍDO':'SIMULADO CONCLUÍDO'}</div><h1>Seu resultado</h1><div className="score-card"><div><strong>{Math.round((result.correct/result.responses.length)*100)}%</strong><span>de aproveitamento no quiz</span></div><div><b>{result.correct}</b><span>acertos</span></div><div><b>{result.wrong}</b><span>erros</span></div></div><p className="hint">Esta pontuação é apenas para estudo e não representa aprovação em exame de faixa.</p><div className="section-head"><h2>Por categoria</h2></div><div className="breakdown">{categoryBreakdown(result).map(row=><div key={row.category}><span>{categoryNames[row.category]}</span><strong>{row.correct} / {row.total}</strong></div>)}</div><div className="section-head review-head"><h2>Revise suas respostas</h2><button className="text-button" onClick={()=>setWrongOnly(x=>!x)}>{wrongOnly?'Mostrar todas':'Ver apenas erros'}</button></div><div className="reviews">{rows.map(({question,response},i)=><article key={response.questionId}><span className={response.correct?'status good':'status bad'}>{response.correct?'Acertou':'Errou'}</span><h3>{i+1}. {question!.prompt}</h3><p>Sua resposta: <strong>{response.selected}</strong></p>{!response.correct&&<p>Resposta correta: <strong>{question!.answer}</strong></p>}<small>{question!.reference}</small></article>)}</div><div className="actions"><Link className="button primary" to={`/simulado/${result.config.gradeId}`}>Outro simulado →</Link><Link className="button secondary" to="/treino">Treinar mais</Link></div></section>}
-export default function App(){return <Layout><Routes><Route path="/" element={<Home/>}/><Route path="/faixas" element={<GradeSelection/>}/><Route path="/simulado/:gradeId" element={<ConfigPage/>}/><Route path="/treino" element={<ConfigPage training/>}/><Route path="/quiz" element={<Quiz/>}/><Route path="/resultado/:id" element={<ResultPage/>}/><Route path="/resultados" element={<Navigate to="/faixas" replace/>}/><Route path="*" element={<Home/>}/></Routes></Layout>}
+const categories = Object.keys(categoryNames) as Category[];
+const modeName = {simulado: 'Simulado', treino: 'Treino livre'};
+const sessionPath = (config: QuizConfig) => config.mode === 'treino' ? '/treino' : '/simulado/' + config.gradeId;
+const plural = (count: number, one: string, many: string) => count + ' ' + (count === 1 ? one : many);
+const preview = questions.find(question => question.id === 'bc-rei-1')!;
+
+function Layout({children}: {children: ReactNode}) {
+  const {pathname, search, state} = useLocation();
+  const main = useRef<HTMLElement>(null);
+  const previous = useRef('');
+  const route = pathname.startsWith('/resultado/') ? pathname + search : pathname;
+  const quiz = pathname === '/quiz';
+  const config = quiz ? state as QuizConfig | undefined : undefined;
+  const simulation = pathname === '/faixas' || pathname.startsWith('/simulado/') || (pathname.startsWith('/resultado/') && state?.config?.mode !== 'treino');
+  const training = pathname === '/treino' || (pathname.startsWith('/resultado/') && state?.config?.mode === 'treino');
+
+  useEffect(() => {
+    if (previous.current && previous.current !== route) {
+      if (document.scrollingElement) document.scrollingElement.scrollTop = 0;
+      main.current?.querySelector<HTMLElement>('h1')?.focus({preventScroll: true});
+    }
+    previous.current = route;
+  }, [route]);
+
+  return <>
+    <a className="skip-link" href="#conteudo" onClick={event => {
+      event.preventDefault();
+      main.current?.focus();
+    }}>Ir para o conteúdo</a>
+    <header className={'topbar' + (quiz ? ' session-header' : '')}>
+      <div className="wrap topbar-inner">
+        {quiz ? <>
+          <TextLink to={config?.mode === 'treino' ? '/treino' : '/faixas'} back>Sair</TextLink>
+          <strong>{config ? modeName[config.mode] : 'Estudo'}</strong>
+        </> : <>
+          <Link className="brand" to="/" aria-label="Judô Quiz, início">
+            <span className="brand-mark" aria-hidden="true"><i/><i/><i/></span>Judô Quiz
+          </Link>
+          <NavLink className="mobile-requirements" to="/requisitos"><Icon name="book" size={17}/>Requisitos</NavLink>
+          <nav className={'nav' + (pathname === '/' ? ' nav-home' : '')} aria-label="Navegação principal">
+            <Link to="/faixas" aria-current={simulation ? 'page' : undefined}>Simulado</Link>
+            <Link to="/treino" aria-current={training ? 'page' : undefined}>Treino livre</Link>
+            <NavLink className="nav-requirements" to="/requisitos">Requisitos</NavLink>
+          </nav>
+        </>}
+      </div>
+    </header>
+    <main id="conteudo" tabIndex={-1} ref={main}>{children}</main>
+    <footer><div className="wrap">Projeto independente. O Judô Quiz não representa um exame oficial da FMJ.</div></footer>
+  </>;
+}
+
+function Home() {
+  return <>
+    <section className="hero">
+      <div className="wrap hero-inner">
+        <div className="hero-layout">
+          <div className="hero-copy">
+            <h1 tabIndex={-1}>Estude para a sua faixa de judô</h1>
+            <p>Pratique teoria e reconhecimento de técnicas. Veja onde você errou e o que revisar.</p>
+            <p className="hero-facts">{grades.length} faixas / {questions.length} questões</p>
+            <div className="actions">
+              <ActionLink to="/faixas" className="highlight">Escolher faixa</ActionLink>
+              <ActionLink to="/treino" className="secondary hero-train">Abrir treino livre</ActionLink>
+            </div>
+          </div>
+          <div className="quiz-preview">
+            <div className="preview-top"><GradeMark grade={grades[0]}/><span className="badge">Prévia</span></div>
+            <div className="preview-body">
+              <p>{preview.prompt}</p>
+              <div className="preview-media"><img src={studyAsset(preview.imagePath!)} alt="Sequência ilustrada de uma saudação do judô" width={222} height={188}/></div>
+              <div className="preview-options"><span>A · {preview.options[1]}</span><span>B · {preview.options[0]}</span></div>
+            </div>
+          </div>
+        </div>
+        <div className="hero-links">
+          <div className="hero-mobile-train"><TextLink to="/treino">Abrir treino livre</TextLink></div>
+          <TextLink to="/requisitos">Consultar requisitos</TextLink>
+          <span>Da branca/cinza à marrom</span>
+        </div>
+      </div>
+    </section>
+    <section className="wrap graduation-preview">
+      <div className="section-head"><h2>Graduações</h2><TextLink to="/faixas">Ver todas as faixas</TextLink></div>
+      <ul>{grades.map(grade => <li key={grade.id}>
+        <Link to={'/simulado/' + grade.id}><Belt colors={grade.colors}/><span>{grade.name}</span></Link>
+      </li>)}</ul>
+    </section>
+  </>;
+}
+
+function PageIntro({title, children}: {title: string; children?: ReactNode}) {
+  return <div className="page-intro"><h1 tabIndex={-1}>{title}</h1>{children && <p>{children}</p>}</div>;
+}
+
+function GradeSelection() {
+  return <section className="wrap page">
+    <PageIntro title="Escolha a faixa">A graduação escolhida orienta as questões do simulado.</PageIntro>
+    <div className="section-head"><span className="data-label">Do 11º ao 1º Kyû</span><TextLink to="/requisitos">Consultar requisitos</TextLink></div>
+    <ul className="grade-grid">{grades.map(grade => <li key={grade.id}>
+      <Link to={'/simulado/' + grade.id}>
+        <Belt colors={grade.colors}/>
+        <span><strong>{grade.name}</strong><small>{grade.kyu}º Kyû</small></span>
+        <Icon name="arrow"/>
+      </Link>
+    </li>)}</ul>
+  </section>;
+}
+
+function GradeSelect({grade, onChange, id}: {grade: Grade; onChange: (id: string) => void; id: string}) {
+  return <div className="grade-select">
+    <Belt colors={grade.colors}/>
+    <select id={id} value={grade.id} onChange={event => onChange(event.target.value)}>
+      {grades.map(option => <option value={option.id} key={option.id}>{option.name} · {option.kyu}º Kyû</option>)}
+    </select>
+    <Icon name="down"/>
+  </div>;
+}
+
+function Catalog() {
+  const [params, setParams] = useSearchParams();
+  const grade = grades.find(item => item.id === params.get('faixa')) ?? grades[0];
+  const gradeLink = (id: string) => '/requisitos?faixa=' + id;
+  return <section className="wrap page">
+    <PageIntro title="Requisitos por faixa">Consulte o programa de graduação descrito no art. 8º do regulamento da FMJ.</PageIntro>
+    <div className="catalog-layout">
+      <div className="catalog-select">
+        <label className="field-title" htmlFor="catalog-grade">Faixa consultada</label>
+        <GradeSelect grade={grade} id="catalog-grade" onChange={id => setParams({faixa: id})}/>
+      </div>
+      <nav className="catalog-nav" aria-label="Faixa consultada">
+        <h2>Faixa consultada</h2>
+        {grades.map(item => <Link to={gradeLink(item.id)} key={item.id} aria-current={item.id === grade.id ? 'page' : undefined}>
+          <GradeMark grade={item}/><small>{item.kyu}º Kyû</small>
+        </Link>)}
+      </nav>
+      <div className="catalog-detail">
+        <h2>{grade.name}</h2>
+        <p className="muted">{grade.kyu}º Kyû · FMJ, art. 8º, p. {grade.page}</p>
+        <RequirementList grade={grade}/>
+        <p className="hint">O programa é cumulativo e inclui as faixas anteriores, quando houver.</p>
+        {grade.order > 0 && <details className="earlier-requirements">
+          <summary>Consultar requisitos das faixas anteriores</summary>
+          {grades.slice(0, grade.order).map(earlier => <section key={earlier.id}>
+            <h3><GradeMark grade={earlier}/></h3><RequirementList grade={earlier}/>
+          </section>)}
+        </details>}
+        <ActionLink to={'/simulado/' + grade.id}>Configurar simulado</ActionLink>
+      </div>
+    </div>
+  </section>;
+}
+
+function RequirementList({grade}: {grade: Grade}) {
+  return <dl className="requirement-list">{requirements.filter(item => item.gradeId === grade.id).map(item =>
+    <div key={item.id}><dt>{categoryNames[item.category]}</dt><dd>{item.description}</dd></div>)}</dl>;
+}
+
+function ConfigPage({training = false}: {training?: boolean}) {
+  const {gradeId} = useParams();
+  const navigate = useNavigate();
+  const [chosen, setChosen] = useState(gradeId ?? grades[0].id);
+  const [count, setCount] = useState<10 | 20>(10);
+  const [cumulative, setCumulative] = useState(true);
+  const [selected, setSelected] = useState<Category[]>([]);
+  const grade = grades.find(item => item.id === chosen) ?? grades[0];
+  const config: QuizConfig = {gradeId: grade.id, count, cumulative, categories: selected, mode: training ? 'treino' : 'simulado'};
+  const available = eligible(config).length;
+  const short = available < count;
+  const label = training ? 'Iniciar treino' : 'Iniciar simulado';
+  function toggle(category: Category) {
+    setSelected(items => items.includes(category) ? items.filter(item => item !== category) : [...items, category]);
+  }
+
+  return <section className="wrap page config-page">
+    {!training && <TextLink to="/faixas" back>Voltar às faixas</TextLink>}
+    <PageIntro title={training ? 'Treino livre' : 'Configure o simulado'}>
+      {training ? 'Pratique por tema com feedback imediato. O treino pode incluir técnicas complementares.' : 'Escolha o conteúdo e a duração da rodada.'}
+    </PageIntro>
+    <form className="config-layout" onSubmit={event => {
+      event.preventDefault();
+      if (available) navigate('/quiz', {state: config});
+    }}>
+      <div className="settings">
+        <div className="field">
+          <label className="field-title" htmlFor="config-grade">Faixa pretendida</label>
+          <GradeSelect id="config-grade" grade={grade} onChange={setChosen}/>
+        </div>
+        <fieldset className="field">
+          <legend>Categorias</legend>
+          <div className="chips">{categories.map(category => <button type="button" key={category} className="chip"
+            aria-pressed={selected.includes(category)} onClick={() => toggle(category)}>
+            {selected.includes(category) && <Icon name="check" size={15}/>}
+            {categoryNames[category]}
+          </button>)}</div>
+          <p className="hint">Sem seleção, entram todas as categorias disponíveis.</p>
+        </fieldset>
+        <fieldset className="field">
+          <legend>Quantidade</legend>
+          <div className="chips">{([10, 20] as const).map(value => <label className="radio-chip" key={value}>
+            <input type="radio" name="count" checked={count === value} onChange={() => setCount(value)}/>
+            <span><Icon name="check" size={15}/>{value} questões</span>
+          </label>)}</div>
+        </fieldset>
+        <fieldset className="field">
+          <legend>Conteúdo da faixa</legend>
+          <div className="chips">{[true, false].map(value => <label className="radio-chip" key={String(value)}>
+            <input type="radio" name="scope" checked={cumulative === value} onChange={() => setCumulative(value)}/>
+            <span><Icon name="check" size={15}/>{value ? 'Incluir faixas anteriores' : 'Apenas esta faixa'}</span>
+          </label>)}</div>
+        </fieldset>
+      </div>
+      <aside className={'availability' + (short ? ' warning' : '')} aria-label="Resumo da rodada">
+        <div aria-live="polite" aria-atomic="true">
+          <h2><Icon name={short ? 'alert' : 'book'}/>
+            {!available ? 'Nenhuma questão disponível' : short ? available + ' de ' + count + ' questões disponíveis' : count + ' questões nesta rodada'}
+          </h2>
+          <p>{!available ? 'Selecione outra categoria ou inclua as faixas anteriores.' : short
+            ? 'Com esses filtros, a rodada terá ' + plural(available, 'questão', 'questões') + '. Para incluir mais, altere os filtros.'
+            : plural(available, 'questão disponível', 'questões disponíveis') + ' para esta seleção.'}</p>
+        </div>
+        <button className="button" disabled={!available} type="submit">
+          {short && available ? 'Iniciar com ' + plural(available, 'questão', 'questões') : label}<Icon name="arrow" size={17}/>
+        </button>
+        {!training && <TextLink to={'/requisitos?faixa=' + grade.id}>Ver requisitos da faixa</TextLink>}
+      </aside>
+    </form>
+  </section>;
+}
+
+function QuestionImage({question}: {question: Question}) {
+  const [failed, setFailed] = useState(false);
+  return <div className="question-image">
+    {failed ? <div className="image-error" role="status"><Icon name="image" size={25}/>
+      <strong>Imagem indisponível</strong><button className="button secondary" type="button" onClick={() => setFailed(false)}>Tentar novamente</button>
+    </div> : <img src={studyAsset(question.imagePath!)} alt="Demonstração de saudação para identificar" onError={() => setFailed(true)}/>}
+  </div>;
+}
+
+function Quiz() {
+  const location = useLocation();
+  const config = location.state as QuizConfig | undefined;
+  const navigate = useNavigate();
+  const [deck] = useState(() => config ? prepare(config) : []);
+  const [index, setIndex] = useState(0);
+  const [responses, setResponses] = useState<Response[]>([]);
+  const [selection, setSelection] = useState<string | null>(null);
+  const [maskEnabled, setMaskEnabled] = useState(true);
+  const heading = useRef<HTMLHeadingElement>(null);
+  const feedback = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (index > 0) {
+      if (document.scrollingElement) document.scrollingElement.scrollTop = 0;
+      heading.current?.focus({preventScroll: true});
+    }
+  }, [index]);
+  useEffect(() => {
+    if (selection !== null) feedback.current?.focus();
+  }, [selection]);
+
+  if (!config || !deck.length) return <Missing title="Nenhum quiz em andamento"/>;
+  const grade = grades.find(item => item.id === config.gradeId)!;
+  const current = deck[index];
+  const item = media.find(entry => entry.id === current.mediaId);
+  const video = item && studyMedia(item);
+  const answered = selection !== null;
+  const correct = selection === current.answer;
+  const last = index === deck.length - 1;
+
+  function next() {
+    if (!config || selection === null) return;
+    const updated = [...responses, {questionId: current.id, selected: selection, correct}];
+    if (last) {
+      const result = score(config, updated);
+      saveResult(result);
+      navigate('/resultado/' + encodeURIComponent(result.id), {state: result});
+    } else {
+      setResponses(updated);
+      setSelection(null);
+      setIndex(position => position + 1);
+    }
+  }
+
+  return <section className={'wrap page quiz-page' + (current.kind === 'text' ? ' text-quiz' : '')}>
+    <div className="quiz-progress">
+      <div><GradeMark grade={grade}/><span className="data-label">Questão {index + 1} de {deck.length}</span></div>
+      <div className="progress" aria-hidden="true">{deck.map((question, position) =>
+        <span className={position <= index ? 'done' : ''} key={question.id}/>)}</div>
+    </div>
+    <div className="quiz-layout">
+      <div className="question">
+        <h1 ref={heading} tabIndex={-1}>{current.prompt}</h1>
+        <p className="muted">{categoryNames[current.category]} · {current.kind === 'text' ? 'Teoria' : current.kind === 'image' ? 'Imagem' : 'Vídeo'}</p>
+        {current.scope === 'supplemental' && <span className="badge complementary">Conteúdo complementar</span>}
+        {current.imagePath && <QuestionImage key={current.id} question={current}/>}
+        {video && <>
+          <VideoPlayer key={current.id} media={video} maskEnabled={config.mode === 'simulado' || maskEnabled}/>
+          {config.mode === 'treino' && item?.mask?.enabled && <label className="mask-option">
+            <input type="checkbox" checked={maskEnabled} onChange={event => setMaskEnabled(event.target.checked)}/>
+            Ocultar nome da técnica
+          </label>}
+          {video.source === 'youtube' && <p className="hint">Cobertura experimental quando configurada. Uso local.</p>}
+        </>}
+      </div>
+      <div className="answer-panel">
+        <p id="answer-heading">Escolha uma resposta</p>
+        <div className="options" aria-labelledby="answer-heading" role="group">
+          {current.options.map((option, position) => {
+            const isCorrect = answered && option === current.answer;
+            const isWrong = answered && !isCorrect && option === selection;
+            const state = isCorrect ? 'correct' : isWrong ? 'wrong' : '';
+            return <button type="button" key={option} disabled={answered} className={'option ' + state} onClick={() => setSelection(option)}>
+              <span className="option-letter" aria-hidden="true">{'ABCD'[position]}</span>
+              <span className="option-copy">{option}{state && <small>{isCorrect ? 'Correta' : 'Sua resposta'}</small>}</span>
+              {state && <Icon name={isCorrect ? 'check' : 'close'}/>}
+            </button>;
+          })}
+        </div>
+        {answered && <div className={'feedback ' + (correct ? 'correct' : 'wrong')} tabIndex={-1} ref={feedback} aria-labelledby="feedback-title" role="region">
+          <h2 id="feedback-title"><Icon name={correct ? 'check' : 'close'}/>{correct ? 'Resposta correta' : 'Resposta incorreta'}</h2>
+          <p>{current.explanation}</p>
+          <p className="hint">Fonte · {current.reference}</p>
+          <button className="button" onClick={next}>{last ? 'Ver resultado' : 'Próxima questão'}<Icon name="arrow" size={17}/></button>
+        </div>}
+      </div>
+    </div>
+  </section>;
+}
+
+function Missing({title}: {title: string}) {
+  return <section className="wrap page"><PageIntro title={title}/><ActionLink to="/faixas">Escolher faixa</ActionLink></section>;
+}
+
+function ResultPage() {
+  const {id} = useParams();
+  const location = useLocation();
+  const [params] = useSearchParams();
+  const state = location.state as Result | undefined;
+  const result = state?.id === id ? state : loadResults().find(item => item.id === id);
+  if (!result) return <Missing title="Resultado não encontrado"/>;
+  const grade = grades.find(item => item.id === result.config.gradeId);
+  const training = result.config.mode === 'treino';
+  const title = training ? 'Resultado do treino' : 'Resultado do simulado';
+  const attempt = '/resultado/' + encodeURIComponent(result.id);
+  const reviewPath = (filter: 'todas' | 'erros') => attempt + '?revisao=' + filter;
+  const filter = params.get('revisao');
+  const done = result.responses.length;
+  if (filter === 'todas' || filter === 'erros') return <section className="wrap page review-page">
+    <TextLink to={attempt} state={result} back>Voltar ao resultado</TextLink>
+    <PageIntro title="Revise suas respostas">
+      {grade && 'Faixa ' + grade.name + ' · '}{training ? 'Treino concluído' : 'Simulado concluído'}
+    </PageIntro>
+    <nav className="chips" aria-label="Filtro de respostas">
+      <Link className="chip" aria-current={filter === 'todas' ? 'page' : undefined} to={reviewPath('todas')} state={result}>
+        {filter === 'todas' && <Icon name="check" size={15}/>}Todas ({done})
+      </Link>
+      <Link className="chip" aria-current={filter === 'erros' ? 'page' : undefined} to={reviewPath('erros')} state={result}>
+        {filter === 'erros' && <Icon name="check" size={15}/>}Erros ({result.wrong})
+      </Link>
+    </nav>
+    {filter === 'erros' && result.wrong === 0 && <p className="empty-note">Você acertou todas as questões desta rodada.</p>}
+    <div className="reviews">{result.responses.map((response, index) => {
+      const question = questions.find(item => item.id === response.questionId);
+      if (!question || (filter === 'erros' && response.correct)) return null;
+      return <article className="review-card" key={response.questionId}>
+        <div className="review-meta">
+          <span className="data-label">Questão {index + 1} · {categoryNames[question.category]}</span>
+          <span className={'badge ' + (response.correct ? 'correct' : 'wrong')}><Icon name={response.correct ? 'check' : 'close'} size={15}/>{response.correct ? 'Acertou' : 'Errou'}</span>
+        </div>
+        <h2>{question.prompt}</h2>
+        {question.imagePath && <QuestionImage question={question}/>}
+        <div className="review-answers">
+          <p className={response.correct ? 'correct-ink' : 'wrong-ink'}>Sua resposta · {response.selected}</p>
+          {!response.correct && <p className="correct-ink">Resposta correta · {question.answer}</p>}
+        </div>
+        <p>{question.explanation}</p>
+        <p className="hint">{question.reference}</p>
+      </article>;
+    })}</div>
+    <div className="actions"><ActionLink to="/treino">Abrir treino livre</ActionLink>
+      <ActionLink className="secondary" to={'/requisitos?faixa=' + result.config.gradeId}>Ver requisitos da faixa</ActionLink></div>
+  </section>;
+
+  const breakdown = categoryBreakdown(result).sort((a, b) => (b.total - b.correct) - (a.total - a.correct));
+  return <section className="wrap page result-page">
+    <PageIntro title={title}>{grade && 'Faixa ' + grade.name + ' · '}{plural(done, 'questão respondida', 'questões respondidas')}</PageIntro>
+    <div className="result-layout">
+      <div className="score-card">
+        <div className="score-line">
+          <strong>{done ? Math.round(result.correct / done * 100) : 0}%</strong>
+          <div><b>{plural(result.correct, 'acerto', 'acertos')} · {plural(result.wrong, 'erro', 'erros')}</b><span>Aproveitamento no quiz</span></div>
+        </div>
+        <ActionLink className="highlight" to={reviewPath(result.wrong ? 'erros' : 'todas')} state={result}>
+          {result.wrong ? 'Revisar ' + plural(result.wrong, 'erro', 'erros') : 'Revisar respostas'}
+        </ActionLink>
+      </div>
+      <div className="category-results">
+        <h2>O que revisar</h2>
+        <p className="muted">{result.wrong ? 'Comece pela categoria com mais erros.' : 'Você acertou todas as questões desta rodada.'}</p>
+        <ul>{breakdown.map(row => {
+          const errors = row.total - row.correct;
+          return <li key={row.category}><div><strong>{categoryNames[row.category]}</strong><small>{row.correct} de {plural(row.total, 'acerto', 'acertos')}</small></div>
+            <span className={'badge ' + (errors ? 'wrong' : 'correct')}>{errors ? plural(errors, 'erro', 'erros') : 'Sem erros'}</span>
+          </li>;
+        })}</ul>
+      </div>
+    </div>
+    <p className="hint">A pontuação indica seu desempenho no quiz.</p>
+    <div className="actions">
+      {result.wrong > 0 && <ActionLink className="secondary" to={reviewPath('todas')} state={result}>Ver todas as respostas</ActionLink>}
+      <ActionLink className="secondary" to={sessionPath(result.config)}>{training ? 'Fazer outro treino' : 'Fazer outro simulado'}</ActionLink>
+    </div>
+  </section>;
+}
+
+function SimulationConfig() {
+  const {gradeId} = useParams();
+  return <ConfigPage key={gradeId}/>;
+}
+
+export default function App() {
+  return <Layout><Routes>
+    <Route path="/" element={<Home/>}/>
+    <Route path="/faixas" element={<GradeSelection/>}/>
+    <Route path="/requisitos" element={<Catalog/>}/>
+    <Route path="/simulado/:gradeId" element={<SimulationConfig/>}/>
+    <Route path="/treino" element={<ConfigPage training/>}/>
+    <Route path="/quiz" element={<Quiz/>}/>
+    <Route path="/resultado/:id" element={<ResultPage/>}/>
+    <Route path="/resultados" element={<Navigate to="/faixas" replace/>}/>
+    <Route path="*" element={<Home/>}/>
+  </Routes></Layout>;
+}
 

@@ -15,6 +15,7 @@ export type YouTubeApi = {
   Player: new (element: HTMLIFrameElement, options: {events: {
     onReady: (event: PlayerEvent) => void;
     onStateChange: (event: PlayerEvent) => void;
+    onError?: (event: PlayerEvent) => void;
   }}) => YouTubePlayer;
   PlayerState: {ENDED: number; PLAYING: number};
 };

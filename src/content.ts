@@ -4,7 +4,7 @@ import {makeTheoryContent} from './theoryContent';
 
 export const grades:Grade[] = [
   ['branca-cinza','Branca/Cinza',11,['#f8f8f5','#aeb3bb'],7],['cinza','Cinza',10,['#9ca3af'],7],['cinza-azul','Cinza/Azul',9,['#aeb3bb','#477fc3'],7],['azul','Azul',8,['#477fc3'],7],['azul-amarela','Azul/Amarela',7,['#477fc3','#e8c348'],8],['amarela','Amarela',6,['#e8c348'],8],['amarela-laranja','Amarela/Laranja',5,['#e8c348','#ed9243'],8],['laranja','Laranja',4,['#ed9243'],9],['verde','Verde',3,['#5c9b6b'],9],['roxa','Roxa',2,['#8465a4'],10],['marrom','Marrom',1,['#79523c'],10]
-].map(([id,name,kyu,colors,page],order)=>({id:id as string,name:name as string,kyu:kyu as number,colors:colors as [string,string?],page:page as number,order,requirements:[]}));
+].map(([id,name,kyu,colors,page],order)=>({id:id as string,name:name as string,kyu:kyu as number,colors:colors as [string,string?],page:page as number,order}));
 
 const rows:[string,Category,string,string?][] = [
  ['branca-cinza','rei','Saudação em pé (Ritsu-rei) e ajoelhado (Za-rei).'],
@@ -52,20 +52,21 @@ const rows:[string,Category,string,string?][] = [
  ['marrom','vocabulario','Termos listados no programa da faixa marrom.'],['marrom','historia','História e princípios apresentados no programa da faixa marrom.']
 ];
 export const requirements:Requirement[] = rows.map(([gradeId,category,description],i)=>({id:`r${i+1}`,gradeId,category,description,reference:`FMJ, art. 8º, p. ${grades.find(g=>g.id===gradeId)?.page}`}));
-grades.forEach(g=>g.requirements=requirements.filter(r=>r.gradeId===g.id).map(r=>r.id));
 const req=(grade:string,category:Category)=>requirements.find(r=>r.gradeId===grade&&r.category===category)!;
 const q=(id:string,grade:string,category:Category,prompt:string,answer:string,others:[string,string,string],explanation:string,kind:'text'|'video'|'image'='text',techniqueId?:string,mediaId?:string,imagePath?:string):Question=>({id,introducedAt:grade,requirementId:req(grade,category).id,category,kind,prompt,options:[answer,...others],answer,explanation,reference:req(grade,category).reference,techniqueId,mediaId,imagePath});
 const expanded=makeExpandedContent(requirements);
+const ukemiTitleMask={enabled:true,left:'0%',bottom:'5%',width:'55%',height:'21%'};
+const gripTitleMask={enabled:true,left:'0%',bottom:'0%',width:'34%',height:'21%'};
 
 export const media:Media[]=[
- {id:'o-goshi-kodokan',source:'youtube',player:'youtube-iframe',videoId:'yhu1mfy2vJ4',start:5,end:70,mask:{enabled:true,left:'0%',bottom:'5%',width:'34%',height:'16%'}},
- {id:'ushiro-ukemi-kodokan',source:'youtube',player:'youtube-iframe',videoId:'VoktcQAxEPg',start:28,end:55},
- {id:'yoko-ukemi-kodokan',source:'youtube',player:'youtube-iframe',videoId:'VoktcQAxEPg',start:63,end:70},
- {id:'outen-ukemi-kodokan',source:'youtube',player:'youtube-iframe',videoId:'VoktcQAxEPg',start:77,end:89},
- {id:'mae-ukemi-kodokan',source:'youtube',player:'youtube-iframe',videoId:'VoktcQAxEPg',start:96,end:99},
- {id:'mae-mawari-ukemi-kodokan',source:'youtube',player:'youtube-iframe',videoId:'VoktcQAxEPg',start:108,end:135},
- {id:'ai-yotsu-kodokan',source:'youtube',player:'youtube-iframe',videoId:'AdnY_TrL7XE',start:5,end:88,mask:{enabled:true,left:'0%',bottom:'5%',width:'34%',height:'16%'}},
- {id:'kenka-yotsu-kodokan',source:'youtube',player:'youtube-iframe',videoId:'AdnY_TrL7XE',start:95,mask:{enabled:true,left:'0%',bottom:'5%',width:'34%',height:'16%'}},
+ {id:'o-goshi-kodokan',source:'youtube',videoId:'yhu1mfy2vJ4',start:5,end:70,mask:{enabled:true,left:'0%',bottom:'5%',width:'34%',height:'16%'}},
+ {id:'ushiro-ukemi-kodokan',source:'youtube',videoId:'VoktcQAxEPg',start:28,end:55},
+ {id:'yoko-ukemi-kodokan',source:'youtube',videoId:'VoktcQAxEPg',start:63,end:70},
+ {id:'outen-ukemi-kodokan',source:'youtube',videoId:'VoktcQAxEPg',start:77,end:89,mask:ukemiTitleMask},
+ {id:'mae-ukemi-kodokan',source:'youtube',videoId:'VoktcQAxEPg',start:96,end:99,mask:ukemiTitleMask},
+ {id:'mae-mawari-ukemi-kodokan',source:'youtube',videoId:'VoktcQAxEPg',start:109,end:135},
+ {id:'ai-yotsu-kodokan',source:'youtube',videoId:'AdnY_TrL7XE',start:6,end:88,mask:gripTitleMask},
+ {id:'kenka-yotsu-kodokan',source:'youtube',videoId:'AdnY_TrL7XE',start:95,mask:gripTitleMask},
  ...expanded.media
 ];
 export const techniques:Technique[]=[{id:'o-goshi',name:'O-goshi',aliases:['Ō-goshi'],category:'nage',classification:'Koshi-waza',group:'1º Kyô (associação editorial; não enumerado pela FMJ)',description:'Projeção de quadril.',mediaIds:['o-goshi-kodokan'],reference:'FMJ, art. 8º, p. 7; Judocon, p. 36; vídeo KODOKAN × IJF Academy verificado no canal KODOKAN'},...expanded.techniques];

@@ -12,7 +12,9 @@ const firstKyoOrder:Record<string,string>={
 const osaeGrades=['branca-cinza','cinza','cinza-azul','azul','azul-amarela','amarela','amarela-laranja','laranja','verde','roxa'];
 const pageByGrade:Record<string,number>={'branca-cinza':7,cinza:7,'cinza-azul':7,azul:7,'azul-amarela':8,amarela:8,'amarela-laranja':8,laranja:9,verde:9,roxa:10,marrom:10};
 const gokyoPages:Record<number,string>={1:'35–36',2:'37–38',3:'39–40',4:'41–42',5:'43–44'};
-const mask={enabled:true,left:'0%',bottom:'5%',width:'34%',height:'16%'};
+const mask={enabled:true,left:'0%',bottom:'0%',width:'34%',height:'21%'};
+// The second half of Kata-juji-jime opens with a comparison naming all three techniques.
+const studyEndByVideo: Record<string, number> = {'3VZVUAmiMD8': 70};
 const maskFor=(name:string)=>({...mask,width:`${Math.min(70,Math.max(34,Math.ceil(18+name.length*1.6)))}%`});
 const slug=(name:string)=>name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const clean=(name:string)=>name.replace(/\s+Escapes$/,'').replace(/siho/g,'shiho');
@@ -25,8 +27,8 @@ export function makeExpandedContent(requirements:Requirement[]):{media:Media[];t
   return found;
  };
  const media:Media[]=playlist.filter(item=>item.videoId!=='yhu1mfy2vJ4'&&item.kind!=='promo').map(item=>({
-  id:`playlist-${item.index}`,source:'youtube',player:'youtube-iframe',videoId:item.videoId,
-  start:5,end:Math.max(10,item.seconds-5),mask:maskFor(item.name)
+  id:`playlist-${item.index}`,source:'youtube',videoId:item.videoId,
+  start:7,end:studyEndByVideo[item.videoId] ?? Math.max(10,item.seconds-5),mask:maskFor(item.name)
  }));
  const playable=playlist.filter(item=>!['promo','overview'].includes(item.kind));
  const osae=playable.filter(item=>item.kind==='osae');

@@ -1,6 +1,6 @@
 import {grades,questions,requirements} from './content';
 import type {Category,Question,QuizConfig,Response,Result} from './domain';
-export const shuffle=<T,>(items:T[],random=Math.random):T[]=>{const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const shuffle=<T,>(items:T[],random:()=>number):T[]=>{const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 export function eligible(config:QuizConfig):Question[]{
  const grade=grades.find(g=>g.id===config.gradeId);if(!grade)return [];
  const allowed=new Set(grades.filter(g=>config.cumulative?g.order<=grade.order:g.id===grade.id).map(g=>g.id));
